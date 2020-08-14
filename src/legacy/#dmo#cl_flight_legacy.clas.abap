@@ -2,61 +2,81 @@ CLASS /dmo/cl_flight_legacy DEFINITION
   PUBLIC
   FINAL
   CREATE PRIVATE
-  GLOBAL FRIENDS /dmo/cl_flight_data_generator.
+
+  GLOBAL FRIENDS /dmo/cl_flight_data_generator .
 
   PUBLIC SECTION.
-    INTERFACES /dmo/if_flight_legacy.
 
-    TYPES: BEGIN OF ENUM ty_change_mode STRUCTURE change_mode," Key checks are done separately
-             create,
-             update," Only fields that have been changed need to be checked
-           END OF ENUM ty_change_mode STRUCTURE change_mode.
+    INTERFACES /dmo/if_flight_legacy .
 
-    CLASS-METHODS: get_instance RETURNING VALUE(ro_instance) TYPE REF TO /dmo/cl_flight_legacy.
+    TYPES:
+      BEGIN OF ENUM ty_change_mode STRUCTURE change_mode," Key checks are done separately
+        create,
+        update," Only fields that have been changed need to be checked
+      END OF ENUM ty_change_mode STRUCTURE change_mode .
 
+    CLASS-METHODS get_instance
+      RETURNING
+        VALUE(ro_instance) TYPE REF TO /dmo/cl_flight_legacy .
     "   With respect to the same method call of create/update/delete_travel() we have All or Nothing.
     "   I.e. when one of the levels contains an error, the complete call is refused.
     "   However, the buffer is not cleared in case of an error.
     "   I.e. when the caller wants to start over, he needs to call Initialize() explicitly.
+    METHODS set_status_to_booked
+      IMPORTING
+        !iv_travel_id TYPE /dmo/travel_id
+      EXPORTING
+        !et_messages  TYPE /dmo/if_flight_legacy=>tt_if_t100_message .
+    METHODS create_travel
+      IMPORTING
+        !is_travel             TYPE /dmo/if_flight_legacy=>ts_travel_in
+        !it_booking            TYPE /dmo/if_flight_legacy=>tt_booking_in OPTIONAL
+        !it_booking_supplement TYPE /dmo/if_flight_legacy=>tt_booking_supplement_in OPTIONAL
+      EXPORTING
+        !es_travel             TYPE /dmo/travel
+        !et_booking            TYPE /dmo/if_flight_legacy=>tt_booking
+        !et_booking_supplement TYPE /dmo/if_flight_legacy=>tt_booking_supplement
+        !et_messages           TYPE /dmo/if_flight_legacy=>tt_if_t100_message .
+    METHODS update_travel
+      IMPORTING
+        !is_travel              TYPE /dmo/if_flight_legacy=>ts_travel_in
+        !is_travelx             TYPE /dmo/if_flight_legacy=>ts_travel_inx
+        !it_booking             TYPE /dmo/if_flight_legacy=>tt_booking_in OPTIONAL
+        !it_bookingx            TYPE /dmo/if_flight_legacy=>tt_booking_inx OPTIONAL
+        !it_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement_in OPTIONAL
+        !it_booking_supplementx TYPE /dmo/if_flight_legacy=>tt_booking_supplement_inx OPTIONAL
+      EXPORTING
+        !es_travel              TYPE /dmo/travel
+        !et_booking             TYPE /dmo/if_flight_legacy=>tt_booking
+        !et_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement
+        !et_messages            TYPE /dmo/if_flight_legacy=>tt_if_t100_message .
+    METHODS delete_travel
+      IMPORTING
+        !iv_travel_id TYPE /dmo/travel_id
+      EXPORTING
+        !et_messages  TYPE /dmo/if_flight_legacy=>tt_if_t100_message .
+    METHODS get_travel
+      IMPORTING
+        !iv_travel_id           TYPE /dmo/travel_id
+        !iv_include_buffer      TYPE zabap_boolean
+        !iv_include_temp_buffer TYPE zabap_boolean OPTIONAL
+      EXPORTING
+        !es_travel              TYPE /dmo/travel
+        !et_booking             TYPE /dmo/if_flight_legacy=>tt_booking
+        !et_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement
+        !et_messages            TYPE /dmo/if_flight_legacy=>tt_if_t100_message .
+    METHODS save .
+    METHODS initialize .
+    METHODS convert_messages
+      IMPORTING
+        !it_messages TYPE /dmo/if_flight_legacy=>tt_if_t100_message
+      EXPORTING
+        !et_messages TYPE /dmo/if_flight_legacy=>tt_message .
+protected section.
+private section.
 
-    METHODS set_status_to_booked IMPORTING iv_travel_id TYPE /dmo/travel_id
-                                 EXPORTING et_messages  TYPE /dmo/if_flight_legacy=>tt_if_t100_message.
+  class-data GO_INSTANCE type ref to /DMO/CL_FLIGHT_LEGACY .
 
-    METHODS create_travel IMPORTING is_travel             TYPE /dmo/if_flight_legacy=>ts_travel_in
-                                    it_booking            TYPE /dmo/if_flight_legacy=>tt_booking_in OPTIONAL
-                                    it_booking_supplement TYPE /dmo/if_flight_legacy=>tt_booking_supplement_in OPTIONAL
-                          EXPORTING es_travel             TYPE /dmo/travel
-                                    et_booking            TYPE /dmo/if_flight_legacy=>tt_booking
-                                    et_booking_supplement TYPE /dmo/if_flight_legacy=>tt_booking_supplement
-                                    et_messages           TYPE /dmo/if_flight_legacy=>tt_if_t100_message.
-    METHODS update_travel IMPORTING is_travel              TYPE /dmo/if_flight_legacy=>ts_travel_in
-                                    is_travelx             TYPE /dmo/if_flight_legacy=>ts_travel_inx
-                                    it_booking             TYPE /dmo/if_flight_legacy=>tt_booking_in OPTIONAL
-                                    it_bookingx            TYPE /dmo/if_flight_legacy=>tt_booking_inx OPTIONAL
-                                    it_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement_in OPTIONAL
-                                    it_booking_supplementx TYPE /dmo/if_flight_legacy=>tt_booking_supplement_inx OPTIONAL
-                          EXPORTING es_travel              TYPE /dmo/travel
-                                    et_booking             TYPE /dmo/if_flight_legacy=>tt_booking
-                                    et_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement
-                                    et_messages            TYPE /dmo/if_flight_legacy=>tt_if_t100_message.
-    METHODS delete_travel IMPORTING iv_travel_id TYPE /dmo/travel_id
-                          EXPORTING et_messages  TYPE /dmo/if_flight_legacy=>tt_if_t100_message.
-    METHODS get_travel IMPORTING iv_travel_id           TYPE /dmo/travel_id
-                                 iv_include_buffer      TYPE abap_boolean
-                                 iv_include_temp_buffer TYPE abap_boolean OPTIONAL
-                       EXPORTING es_travel              TYPE /dmo/travel
-                                 et_booking             TYPE /dmo/if_flight_legacy=>tt_booking
-                                 et_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement
-                                 et_messages            TYPE /dmo/if_flight_legacy=>tt_if_t100_message.
-    METHODS save.
-    METHODS initialize.
-    METHODS convert_messages IMPORTING it_messages TYPE /dmo/if_flight_legacy=>tt_if_t100_message
-                             EXPORTING et_messages TYPE /dmo/if_flight_legacy=>tt_message.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
-    CLASS-DATA go_instance TYPE REF TO /dmo/cl_flight_legacy.
-
-    CLASS-METHODS:
       "! Calculation of Price <br/>
       "!  <br/>
       "! Price will be calculated using distance multiplied and occupied seats.<br/>
@@ -69,37 +89,49 @@ CLASS /dmo/cl_flight_legacy DEFINITION
       "! @parameter iv_seats_occupied_percent | occupied seats
       "! @parameter iv_flight_distance | flight distance in kilometer
       "! @parameter rv_price | calculated flight price
-      calculate_flight_price
-        IMPORTING
-          iv_seats_occupied_percent TYPE /dmo/plane_seats_occupied
-          iv_flight_distance        TYPE i
-        RETURNING
-          VALUE(rv_price)           TYPE /dmo/flight_price ##RELAX.
-
-    METHODS lock_travel IMPORTING iv_lock TYPE abap_bool
-                        RAISING   /dmo/cx_flight_legacy ##RELAX ##NEEDED.
-
-    METHODS _resolve_attribute IMPORTING iv_attrname      TYPE scx_attrname
-                                         ix               TYPE REF TO /dmo/cx_flight_legacy
-                               RETURNING VALUE(rv_symsgv) TYPE symsgv.
+  class-methods CALCULATE_FLIGHT_PRICE
+    importing
+      !IV_SEATS_OCCUPIED_PERCENT type /DMO/PLANE_SEATS_OCCUPIED
+      !IV_FLIGHT_DISTANCE type I
+    returning
+      value(RV_PRICE) type /DMO/FLIGHT_PRICE  ##RELAX.
+  methods LOCK_TRAVEL
+    importing
+      !IV_LOCK type ABAP_BOOL
+    raising
+      /DMO/CX_FLIGHT_LEGACY  ##RELAX ##NEEDED.
+  methods _RESOLVE_ATTRIBUTE
+    importing
+      !IV_ATTRNAME type SCX_ATTRNAME
+      !IX type ref to /DMO/CX_FLIGHT_LEGACY
+    returning
+      value(RV_SYMSGV) type SYMSGV .
     "! Final determinations / derivations after all levels have been prepared, e.g. bottom-up derivations
-    METHODS _determine EXPORTING et_messages           TYPE /dmo/if_flight_legacy=>tt_if_t100_message
-                       CHANGING  cs_travel             TYPE /dmo/travel
-                                 ct_booking            TYPE /dmo/if_flight_legacy=>tt_booking
-                                 ct_booking_supplement TYPE /dmo/if_flight_legacy=>tt_booking_supplement.
-    METHODS _determine_travel_total_price CHANGING cs_travel             TYPE /dmo/travel
-                                                   ct_booking            TYPE /dmo/if_flight_legacy=>tt_booking
-                                                   ct_booking_supplement TYPE /dmo/if_flight_legacy=>tt_booking_supplement
-                                                   ct_messages           TYPE /dmo/if_flight_legacy=>tt_if_t100_message ##NEEDED.
-    METHODS _convert_currency IMPORTING iv_currency_code_source TYPE /dmo/currency_code
-                                        iv_currency_code_target TYPE /dmo/currency_code
-                                        iv_amount               TYPE /dmo/total_price
-                              RETURNING VALUE(rv_amount)        TYPE /dmo/total_price.
+  methods _DETERMINE
+    exporting
+      !ET_MESSAGES type /DMO/IF_FLIGHT_LEGACY=>TT_IF_T100_MESSAGE
+    changing
+      !CS_TRAVEL type /DMO/TRAVEL
+      !CT_BOOKING type /DMO/IF_FLIGHT_LEGACY=>TT_BOOKING
+      !CT_BOOKING_SUPPLEMENT type /DMO/IF_FLIGHT_LEGACY=>TT_BOOKING_SUPPLEMENT .
+  methods _DETERMINE_TRAVEL_TOTAL_PRICE
+    changing
+      !CS_TRAVEL type /DMO/TRAVEL
+      !CT_BOOKING type /DMO/IF_FLIGHT_LEGACY=>TT_BOOKING
+      !CT_BOOKING_SUPPLEMENT type /DMO/IF_FLIGHT_LEGACY=>TT_BOOKING_SUPPLEMENT
+      !CT_MESSAGES type /DMO/IF_FLIGHT_LEGACY=>TT_IF_T100_MESSAGE  ##NEEDED.
+  methods _CONVERT_CURRENCY
+    importing
+      !IV_CURRENCY_CODE_SOURCE type /DMO/CURRENCY_CODE
+      !IV_CURRENCY_CODE_TARGET type /DMO/CURRENCY_CODE
+      !IV_AMOUNT type /DMO/TOTAL_PRICE
+    returning
+      value(RV_AMOUNT) type /DMO/TOTAL_PRICE .
 ENDCLASS.
 
 
 
-CLASS /dmo/cl_flight_legacy IMPLEMENTATION.
+CLASS /DMO/CL_FLIGHT_LEGACY IMPLEMENTATION.
 
 
   METHOD calculate_flight_price.
@@ -492,7 +524,7 @@ CLASS /dmo/cl_flight_legacy IMPLEMENTATION.
 
 
   METHOD _convert_currency.
-    DATA(lv_exchange_rate_date) = cl_abap_context_info=>get_system_date( )." Do not buffer: Current date may change during lifetime of session
+    DATA(lv_exchange_rate_date) = zcl_abap_context_info=>get_system_date( )." Do not buffer: Current date may change during lifetime of session
     /dmo/cl_flight_amdp=>convert_currency(
       EXPORTING
         iv_amount               = iv_amount

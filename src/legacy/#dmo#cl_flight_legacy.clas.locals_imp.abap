@@ -2,10 +2,10 @@ CLASS lcl_common_checks DEFINITION FINAL CREATE PRIVATE.
   PUBLIC SECTION.
     CLASS-METHODS is_currency_code_valid IMPORTING iv_currency_code   TYPE /dmo/currency_code
                                          CHANGING  ct_messages        TYPE /dmo/if_flight_legacy=>tt_if_t100_message
-                                         RETURNING VALUE(rv_is_valid) TYPE abap_boolean.
+                                         RETURNING VALUE(rv_is_valid) TYPE zabap_boolean.
     CLASS-METHODS is_customer_id_valid IMPORTING iv_customer_id     TYPE /dmo/customer_id
                                        CHANGING  ct_messages        TYPE /dmo/if_flight_legacy=>tt_if_t100_message
-                                       RETURNING VALUE(rv_is_valid) TYPE abap_boolean.
+                                       RETURNING VALUE(rv_is_valid) TYPE zabap_boolean.
   PRIVATE SECTION.
     CLASS-DATA mt_currency_code TYPE SORTED TABLE OF /dmo/currency_code WITH UNIQUE KEY table_line.
     CLASS-DATA mt_customer_id TYPE SORTED TABLE OF /dmo/customer_id WITH UNIQUE KEY table_line.
@@ -63,8 +63,8 @@ CLASS lcl_booking_supplement_buffer DEFINITION FINAL CREATE PRIVATE.
     METHODS cud_disc.
     "! Get all Booking Supplements for given Bookings
     METHODS get IMPORTING it_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement
-                          iv_include_buffer      TYPE abap_boolean
-                          iv_include_temp_buffer TYPE abap_boolean
+                          iv_include_buffer      TYPE zabap_boolean
+                          iv_include_temp_buffer TYPE zabap_boolean
                 EXPORTING et_booking_supplement  TYPE /dmo/if_flight_legacy=>tt_booking_supplement.
 
   PRIVATE SECTION.
@@ -635,8 +635,8 @@ CLASS lcl_booking_buffer DEFINITION FINAL CREATE PRIVATE.
     METHODS cud_disc.
     "! Get all Bookings for given Travels
     METHODS get IMPORTING it_booking             TYPE /dmo/if_flight_legacy=>tt_booking
-                          iv_include_buffer      TYPE abap_boolean
-                          iv_include_temp_buffer TYPE abap_boolean
+                          iv_include_buffer      TYPE zabap_boolean
+                          iv_include_temp_buffer TYPE zabap_boolean
                 EXPORTING et_booking             TYPE /dmo/if_flight_legacy=>tt_booking.
 
   PRIVATE SECTION.
@@ -1142,7 +1142,7 @@ CLASS lcl_booking_buffer IMPLEMENTATION.
 
       " A. Booking Date must not be initial
       " B. When the record is created it must not be in the past
-      IF is_booking-booking_date IS INITIAL OR is_booking-booking_date = '' OR ( iv_change_mode = /dmo/cl_flight_legacy=>change_mode-create AND is_booking-booking_date < cl_abap_context_info=>get_system_date( ) ).
+      IF is_booking-booking_date IS INITIAL OR is_booking-booking_date = '' OR ( iv_change_mode = /dmo/cl_flight_legacy=>change_mode-create AND is_booking-booking_date < zcl_abap_context_info=>get_system_date( ) ).
         rv_is_valid = abap_false.
         APPEND NEW /dmo/cx_flight_legacy( textid = /dmo/cx_flight_legacy=>booking_booking_date_invalid  travel_id = is_booking-travel_id  booking_id = is_booking-booking_id  booking_date = is_booking-booking_date ) TO ct_messages.
       ENDIF.
@@ -1222,8 +1222,8 @@ CLASS lcl_travel_buffer DEFINITION FINAL CREATE PRIVATE.
     "! Discard content of the temporary buffer
     METHODS cud_disc.
     METHODS get IMPORTING it_travel              TYPE /dmo/if_flight_legacy=>tt_travel
-                          iv_include_buffer      TYPE abap_boolean
-                          iv_include_temp_buffer TYPE abap_boolean
+                          iv_include_buffer      TYPE zabap_boolean
+                          iv_include_temp_buffer TYPE zabap_boolean
                 EXPORTING et_travel              TYPE /dmo/if_flight_legacy=>tt_travel.
 
   PRIVATE SECTION.

@@ -1185,7 +1185,7 @@ CLASS ltc_booking IMPLEMENTATION.
     ENDIF.
 
     " Use Current date as Booking date
-    gv_booking_date = cl_abap_context_info=>get_system_date( ).
+    gv_booking_date = zcl_abap_context_info=>get_system_date( ).
   ENDMETHOD.
 
 
@@ -3329,7 +3329,7 @@ CLASS ltc_booking_supplement IMPLEMENTATION.
     gr_cut->save( ).
 
     " Check travel
-    DATA(lv_exchange_rate_date) = cl_abap_context_info=>get_system_date( ).
+    DATA(lv_exchange_rate_date) = zcl_abap_context_info=>get_system_date( ).
     /dmo/cl_flight_amdp=>convert_currency(
       EXPORTING
         iv_amount               = '30.00'

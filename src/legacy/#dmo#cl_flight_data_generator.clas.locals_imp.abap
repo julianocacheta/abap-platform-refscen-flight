@@ -1,7 +1,7 @@
 INTERFACE lif_data_generator.
   CLASS-METHODS:
     create
-      IMPORTING out TYPE REF TO if_oo_adt_classrun_out OPTIONAL.
+      IMPORTING out TYPE REF TO zif_oo_adt_classrun_out OPTIONAL.
 ENDINTERFACE.
 
 CLASS lcl_agency_data_generator DEFINITION CREATE PRIVATE.
@@ -1639,8 +1639,8 @@ CLASS lcl_travel_data_generator DEFINITION CREATE PRIVATE.
   PROTECTED SECTION.
   PRIVATE SECTION.
     TYPES: BEGIN OF ty_countryname,
-             country     TYPE i_countrytext-country,
-             countryname TYPE i_countrytext-countryname,
+             country     TYPE zi_countrytext-country,
+             countryname TYPE zi_countrytext-countryname,
            END OF ty_countryname.
 
     CONSTANTS: cv_travel_group_amount_max     TYPE i VALUE 3,
@@ -1874,7 +1874,7 @@ CLASS lcl_travel_data_generator IMPLEMENTATION.
 
     gt_airports = lcl_airport_data_generator=>get_data( ).
 
-    SELECT FROM i_countrytext FIELDS country, countryname WHERE language = 'E' INTO TABLE @gt_countryname.
+    SELECT FROM zi_countrytext FIELDS country, countryname WHERE language = 'E' INTO TABLE @gt_countryname.
 
     gt_flights_final = lcl_flight_data_generator=>get_data( ).
     SORT gt_flights_final BY flight_date ASCENDING.

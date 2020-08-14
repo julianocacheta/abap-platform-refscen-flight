@@ -1,383 +1,381 @@
-CLASS /dmo/cx_flight_legacy DEFINITION
-  PUBLIC
-  INHERITING FROM cx_static_check
-  FINAL
-  CREATE PUBLIC .
+class /DMO/CX_FLIGHT_LEGACY definition
+  public
+  inheriting from CX_STATIC_CHECK
+  final
+  create public .
 
-  PUBLIC SECTION.
-    INTERFACES if_t100_message .
+public section.
 
-    CONSTANTS:
-      gc_msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
+  interfaces IF_T100_MESSAGE .
 
-      BEGIN OF agency_unkown,
+  constants:
+    BEGIN OF agency_unkown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '001',
         attr1 TYPE scx_attrname VALUE 'MV_AGENCY_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF agency_unkown,
-
-      BEGIN OF customer_unkown,
+      END OF agency_unkown .
+  constants:
+    BEGIN OF customer_unkown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '002',
         attr1 TYPE scx_attrname VALUE 'MV_CUSTOMER_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF customer_unkown,
-
-      BEGIN OF connection_unknown,
+      END OF customer_unkown .
+  constants:
+    BEGIN OF connection_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '004',
         attr1 TYPE scx_attrname VALUE 'MV_CARRIER_ID',
         attr2 TYPE scx_attrname VALUE 'MV_CONNECTION_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF connection_unknown      ,
-
-      BEGIN OF carrier_unknown,
+      END OF connection_unknown .
+  constants:
+    BEGIN OF carrier_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '005',
         attr1 TYPE scx_attrname VALUE 'MV_CARRIER_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF carrier_unknown            ,
-
-      BEGIN OF supplement_unknown,
+      END OF carrier_unknown .
+  constants:
+    BEGIN OF supplement_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '006',
         attr1 TYPE scx_attrname VALUE 'MV_SUPPLEMENT_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF supplement_unknown,
-
-      BEGIN OF travel_status_invalid,
+      END OF supplement_unknown .
+  constants:
+    BEGIN OF travel_status_invalid,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '007',
         attr1 TYPE scx_attrname VALUE 'MV_STATUS',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF travel_status_invalid,
-
-      BEGIN OF currency_unknown,
+      END OF travel_status_invalid .
+  constants:
+    BEGIN OF currency_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '008',
         attr1 TYPE scx_attrname VALUE 'MV_CURRENCY_CODE',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF currency_unknown,
-
-      BEGIN OF travel_no_key,
+      END OF currency_unknown .
+  constants:
+    BEGIN OF travel_no_key,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '009',
         attr1 TYPE scx_attrname VALUE '',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF travel_no_key,
-
-      BEGIN OF no_begin_date,
+      END OF travel_no_key .
+  constants:
+    BEGIN OF no_begin_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '013',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF no_begin_date,
-
-      BEGIN OF no_end_date,
+      END OF no_begin_date .
+  constants:
+    BEGIN OF no_end_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '014',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF no_end_date,
-
-      BEGIN OF end_date_before_begin_date,
+      END OF no_end_date .
+  constants:
+    BEGIN OF end_date_before_begin_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '015',
         attr1 TYPE scx_attrname VALUE 'MV_BEGIN_DATE',
         attr2 TYPE scx_attrname VALUE 'MV_END_DATE',
         attr3 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr4 TYPE scx_attrname VALUE '',
-      END OF end_date_before_begin_date,
-
-      BEGIN OF travel_unknown,
+      END OF end_date_before_begin_date .
+  constants:
+    BEGIN OF travel_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '016',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF travel_unknown,
-
-      BEGIN OF booking_unknown,
+      END OF travel_unknown .
+  constants:
+    BEGIN OF booking_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '017',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_unknown,
-
-      BEGIN OF booking_no_key,
+      END OF booking_unknown .
+  constants:
+    BEGIN OF booking_no_key,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '018',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_no_key,
-
-      BEGIN OF booking_booking_date_invalid,
+      END OF booking_no_key .
+  constants:
+    BEGIN OF booking_booking_date_invalid,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '019',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE 'MV_BOOKING_DATE',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_booking_date_invalid,
-
-      BEGIN OF flight_unknown,
+      END OF booking_booking_date_invalid .
+  constants:
+    BEGIN OF flight_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '020',
         attr1 TYPE scx_attrname VALUE 'MV_CARRIER_ID',
         attr2 TYPE scx_attrname VALUE 'MV_CONNECTION_ID',
         attr3 TYPE scx_attrname VALUE 'MV_FLIGHT_DATE',
         attr4 TYPE scx_attrname VALUE '',
-      END OF flight_unknown,
-
-      BEGIN OF booking_supplement_unknown,
+      END OF flight_unknown .
+  constants:
+    BEGIN OF booking_supplement_unknown,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '021',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE 'MV_BOOKING_SUPPLEMENT_ID',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_supplement_unknown,
-
-      BEGIN OF booking_supplement_no_key,
+      END OF booking_supplement_unknown .
+  constants:
+    BEGIN OF booking_supplement_no_key,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '022',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_supplement_no_key,
-
-      BEGIN OF booking_exists,
+      END OF booking_supplement_no_key .
+  constants:
+    BEGIN OF booking_exists,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '023',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_exists,
-
-      BEGIN OF booking_supplement_exists,
+      END OF booking_exists .
+  constants:
+    BEGIN OF booking_supplement_exists,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '024',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE 'MV_BOOKING_SUPPLEMENT_ID',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_supplement_exists,
-
-      BEGIN OF travel_no_control,
+      END OF booking_supplement_exists .
+  constants:
+    BEGIN OF travel_no_control,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '025',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF travel_no_control,
-
-      BEGIN OF booking_no_control,
+      END OF travel_no_control .
+  constants:
+    BEGIN OF booking_no_control,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '026',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_no_control,
-
-      BEGIN OF booking_supplement_no_control,
+      END OF booking_no_control .
+  constants:
+    BEGIN OF booking_supplement_no_control,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '027',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE 'MV_BOOKING_SUPPLEMENT_ID',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_supplement_no_control,
-
-      BEGIN OF booking_supplement_suppl_id_u,
+      END OF booking_supplement_no_control .
+  constants:
+    BEGIN OF booking_supplement_suppl_id_u,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '028',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE 'MV_BOOKING_SUPPLEMENT_ID',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_supplement_suppl_id_u,
-
-      BEGIN OF booking_supplement_pri_curr_u,
+      END OF booking_supplement_suppl_id_u .
+  constants:
+    BEGIN OF booking_supplement_pri_curr_u,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '029',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE 'MV_BOOKING_SUPPLEMENT_ID',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_supplement_pri_curr_u,
-
-      BEGIN OF booking_flight_u,
+      END OF booking_supplement_pri_curr_u .
+  constants:
+    BEGIN OF booking_flight_u,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '030',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_flight_u,
-
-      BEGIN OF booking_price_currency_u,
+      END OF booking_flight_u .
+  constants:
+    BEGIN OF booking_price_currency_u,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '031',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_price_currency_u,
-
-      BEGIN OF travel_lock,
+      END OF booking_price_currency_u .
+  constants:
+    BEGIN OF travel_lock,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '032',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_UNAME',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF travel_lock,
-
-      BEGIN OF travel_already_exists,
+      END OF travel_lock .
+  constants:
+    BEGIN OF travel_already_exists,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '033',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF travel_already_exists,
-
-      BEGIN OF status_is_not_valid,
+      END OF travel_already_exists .
+  constants:
+    BEGIN OF status_is_not_valid,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '037',
         attr1 TYPE scx_attrname VALUE 'MV_STATUS',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF status_is_not_valid,
-
-      BEGIN OF begin_date_before_system_date,
+      END OF status_is_not_valid .
+  constants:
+    BEGIN OF begin_date_before_system_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '038',
         attr1 TYPE scx_attrname VALUE 'MV_BEGIN_DATE',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF begin_date_before_system_date,
-
-      BEGIN OF end_date_before_system_date,
+      END OF begin_date_before_system_date .
+  constants:
+    BEGIN OF end_date_before_system_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '039',
         attr1 TYPE scx_attrname VALUE 'MV_BEGIN_DATE',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF end_date_before_system_date,
-
-      BEGIN OF booking_enter_booking_date,
+      END OF end_date_before_system_date .
+  constants:
+    BEGIN OF booking_enter_booking_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '040',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF booking_enter_booking_date,
-
-      BEGIN OF currency_code_is_initial,
+      END OF booking_enter_booking_date .
+  constants:
+    BEGIN OF currency_code_is_initial,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '041',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE '',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF currency_code_is_initial,
-
-      BEGIN OF flight_date_befor_booking_date,
+      END OF currency_code_is_initial .
+  constants:
+    BEGIN OF flight_date_befor_booking_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '042',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF flight_date_befor_booking_date,
-
-      BEGIN OF BOOKING_date_befor_system_date,
+      END OF flight_date_befor_booking_date .
+  constants:
+    BEGIN OF BOOKING_date_befor_system_date,
         msgid TYPE symsgid VALUE '/DMO/CM_FLIGHT_LEGAC',
         msgno TYPE symsgno VALUE '043',
         attr1 TYPE scx_attrname VALUE 'MV_TRAVEL_ID',
         attr2 TYPE scx_attrname VALUE 'MV_BOOKING_ID',
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
-      END OF BOOKING_date_befor_system_date.
+      END OF BOOKING_date_befor_system_date .
+  constants GC_MSGID type SYMSGID value '/DMO/CM_FLIGHT_LEGAC' ##NO_TEXT.
+  data MV_TRAVEL_ID type /DMO/TRAVEL_ID .
+  data MV_BOOKING_ID type /DMO/BOOKING_ID .
+  data MV_BOOKING_SUPPLEMENT_ID type /DMO/BOOKING_SUPPLEMENT_ID .
+  data MV_AGENCY_ID type /DMO/AGENCY_ID .
+  data MV_CUSTOMER_ID type /DMO/CUSTOMER_ID .
+  data MV_CARRIER_ID type /DMO/CARRIER-CARRIER_ID .
+  data MV_CONNECTION_ID type /DMO/CONNECTION-CONNECTION_ID .
+  data MV_SUPPLEMENT_ID type /DMO/SUPPLEMENT-SUPPLEMENT_ID .
+  data MV_BEGIN_DATE type /DMO/BEGIN_DATE .
+  data MV_END_DATE type /DMO/END_DATE .
+  data MV_BOOKING_DATE type /DMO/BOOKING_DATE .
+  data MV_FLIGHT_DATE type /DMO/FLIGHT_DATE .
+  data MV_STATUS type /DMO/TRAVEL_STATUS .
+  data MV_CURRENCY_CODE type /DMO/CURRENCY_CODE .
+  data MV_UNAME type SYUNAME .
 
-
-    METHODS constructor
-      IMPORTING
-        textid                LIKE if_t100_message=>t100key OPTIONAL
-        previous              LIKE previous OPTIONAL
-        travel_id             TYPE /dmo/travel_id OPTIONAL
-        booking_id            TYPE /dmo/booking_id OPTIONAL
-        booking_supplement_id TYPE /dmo/booking_supplement_id OPTIONAL
-        agency_id             TYPE /dmo/agency_id OPTIONAL
-        customer_id           TYPE /dmo/customer_id OPTIONAL
-        carrier_id            TYPE /dmo/carrier-carrier_id OPTIONAL
-        connection_id         TYPE /dmo/connection-connection_id OPTIONAL
-        supplement_id         TYPE /dmo/supplement-supplement_id OPTIONAL
-        begin_date            TYPE /dmo/begin_date OPTIONAL
-        end_date              TYPE /dmo/end_date OPTIONAL
-        booking_date          TYPE /dmo/booking_date OPTIONAL
-        flight_date           TYPE /dmo/flight_date OPTIONAL
-        status                TYPE /dmo/travel_status OPTIONAL
-        currency_code         TYPE /dmo/currency_code OPTIONAL
-        uname                 TYPE syuname OPTIONAL.
-
-
-    DATA: mv_travel_id             TYPE /dmo/travel_id,
-          mv_booking_id            TYPE /dmo/booking_id,
-          mv_booking_supplement_id TYPE /dmo/booking_supplement_id,
-          mv_agency_id             TYPE /dmo/agency_id,
-          mv_customer_id           TYPE /dmo/customer_id,
-          mv_carrier_id            TYPE /dmo/carrier-carrier_id,
-          mv_connection_id         TYPE /dmo/connection-connection_id,
-          mv_supplement_id         TYPE /dmo/supplement-supplement_id,
-          mv_begin_date            TYPE /dmo/begin_date,
-          mv_end_date              TYPE /dmo/end_date,
-          mv_booking_date          TYPE /dmo/booking_date,
-          mv_flight_date           TYPE /dmo/flight_date,
-          mv_status                TYPE /dmo/travel_status,
-          mv_currency_code         TYPE /dmo/currency_code,
-          mv_uname                 TYPE syuname.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+  methods CONSTRUCTOR
+    importing
+      !TEXTID like IF_T100_MESSAGE=>T100KEY optional
+      !PREVIOUS like PREVIOUS optional
+      !TRAVEL_ID type /DMO/TRAVEL_ID optional
+      !BOOKING_ID type /DMO/BOOKING_ID optional
+      !BOOKING_SUPPLEMENT_ID type /DMO/BOOKING_SUPPLEMENT_ID optional
+      !AGENCY_ID type /DMO/AGENCY_ID optional
+      !CUSTOMER_ID type /DMO/CUSTOMER_ID optional
+      !CARRIER_ID type /DMO/CARRIER-CARRIER_ID optional
+      !CONNECTION_ID type /DMO/CONNECTION-CONNECTION_ID optional
+      !SUPPLEMENT_ID type /DMO/SUPPLEMENT-SUPPLEMENT_ID optional
+      !BEGIN_DATE type /DMO/BEGIN_DATE optional
+      !END_DATE type /DMO/END_DATE optional
+      !BOOKING_DATE type /DMO/BOOKING_DATE optional
+      !FLIGHT_DATE type /DMO/FLIGHT_DATE optional
+      !STATUS type /DMO/TRAVEL_STATUS optional
+      !CURRENCY_CODE type /DMO/CURRENCY_CODE optional
+      !UNAME type SYUNAME optional .
+protected section.
+private section.
 ENDCLASS.
 
 
 
-CLASS /dmo/cx_flight_legacy IMPLEMENTATION.
+CLASS /DMO/CX_FLIGHT_LEGACY IMPLEMENTATION.
+
 
   METHOD constructor ##ADT_SUPPRESS_GENERATION.
 
@@ -407,6 +405,4 @@ CLASS /dmo/cx_flight_legacy IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
-
 ENDCLASS.
-
