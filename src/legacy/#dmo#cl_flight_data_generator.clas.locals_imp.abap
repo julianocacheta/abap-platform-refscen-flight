@@ -1,7 +1,7 @@
 INTERFACE lif_data_generator.
   CLASS-METHODS:
     create
-      IMPORTING out TYPE REF TO zif_oo_adt_classrun_out OPTIONAL.
+      IMPORTING out TYPE REF TO IF_OO_ADT_INTRNL_CLASSRUN OPTIONAL.     "zif_oo_adt_classrun_out OPTIONAL.
 ENDINTERFACE.
 
 CLASS lcl_agency_data_generator DEFINITION CREATE PRIVATE.
